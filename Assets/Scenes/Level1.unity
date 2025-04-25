@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 147698687}
   - component: {fileID: 147698692}
   - component: {fileID: 147698693}
+  - component: {fileID: 147698694}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -441,6 +442,52 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 1
+--- !u!61 &147698694
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147698686}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.96875, y: 1.21875}
+    newSize: {x: 0.29, y: 0.38}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.96875, y: 1.21875}
+  m_EdgeRadius: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,9 +1374,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2101909132}
   - component: {fileID: 2101909133}
+  - component: {fileID: 2101909134}
   m_Layer: 0
   m_Name: HitSpot
-  m_TagString: Untagged
+  m_TagString: HitPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1395,6 +1443,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.064607, y: 5.268795}
   m_EdgeRadius: 0
+--- !u!114 &2101909134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101909131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7fe7fb08b93ba44ae052df851e6716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2127613472
 GameObject:
   m_ObjectHideFlags: 0
@@ -1459,7 +1519,7 @@ GameObject:
   - component: {fileID: 7817367724339214746}
   m_Layer: 0
   m_Name: demon
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1585,7 +1645,8 @@ MonoBehaviour:
   - {fileID: 1872397301}
   - {fileID: 2127613473}
   speed: 2
-  waitTime: 2
+  waitTime: 5
+  waitingOnPoint: 0
   hitpoint: {fileID: 2101909133}
 --- !u!61 &7817367724339214746
 BoxCollider2D:

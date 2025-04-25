@@ -13,7 +13,8 @@ public class Boss : MonoBehaviour
     public float speed;
     public float waitTime;
     private bool once;
-    bool waitingOnPoint;
+    public bool waitingOnPoint;
+    EnemyHit enemyhit;
 
     public BoxCollider2D hitpoint;
 
@@ -21,6 +22,7 @@ public class Boss : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        enemyhit = GameObject.FindWithTag("HitPoint").GetComponent<EnemyHit>();
     }
     void Update()
     {
@@ -48,9 +50,15 @@ public class Boss : MonoBehaviour
     void flipX()
     {
         if (transform.position.x < patrolPoints[currentPointIndex].position.x)
-            spriteRenderer.flipX = true;
+        {
+            Vector3 pos = new Vector3(transform.rotation.x, transform.rotation.y + 180, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(pos);
+        }
         else
-            spriteRenderer.flipX = false;
+        {
+            Vector3 pos = new Vector3(transform.rotation.x, 0, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(pos);
+        }
     }
 
     IEnumerator Wait()
@@ -69,11 +77,11 @@ public class Boss : MonoBehaviour
         once = false;
     }
 
-    void isAttack()
+    public void isAttack()
     {
         anim.SetBool("isAtacking", true);
     }
-    void endAttack()
+    public void endAttack()
     {
         anim.SetBool("isAtacking", false);
     }
