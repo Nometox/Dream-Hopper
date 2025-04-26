@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 147698692}
   - component: {fileID: 147698693}
   - component: {fileID: 147698694}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ MonoBehaviour:
     m_Bits: 8
   runSpeed: 6
   jumpForce: 6
-  dashingPower: 12
+  dashingPower: 13
   dashingCooldown: 1
 --- !u!96 &147698693
 TrailRenderer:
@@ -1145,7 +1145,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!1 &1595043117
 GameObject:
@@ -1516,8 +1516,7 @@ GameObject:
   - component: {fileID: 7817367724339214745}
   - component: {fileID: 7817367724339214744}
   - component: {fileID: 7817367724339214747}
-  - component: {fileID: 7817367724339214746}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: demon
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1617,7 +1616,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c0e0cc078ece5c343a29e990a013345a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1648,52 +1647,6 @@ MonoBehaviour:
   waitTime: 5
   waitingOnPoint: 0
   hitpoint: {fileID: 2101909133}
---- !u!61 &7817367724339214746
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2080320021888049974}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.0047635436, y: 0.43004668}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.475, y: -0.00952381}
-    oldSize: {x: 0.8, y: 1.05}
-    newSize: {x: 0.8, y: 1.05}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.650473, y: 0.5084814}
-  m_EdgeRadius: 0
 --- !u!61 &7817367724339214747
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1728,7 +1681,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.055205405, y: 0.35102355}
+  m_Offset: {x: 0.047978833, y: 0.37631664}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.475, y: -0.00952381}
@@ -1738,7 +1691,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.40252024, y: 0.6820471}
+  m_Size: {x: 0.41697338, y: 0.7326333}
   m_EdgeRadius: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

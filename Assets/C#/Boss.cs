@@ -18,11 +18,13 @@ public class Boss : MonoBehaviour
 
     public BoxCollider2D hitpoint;
 
+    PlayerController plController;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         enemyhit = GameObject.FindWithTag("HitPoint").GetComponent<EnemyHit>();
+        plController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
     void Update()
     {
@@ -59,6 +61,23 @@ public class Boss : MonoBehaviour
             Vector3 pos = new Vector3(transform.rotation.x, 0, transform.rotation.z);
             transform.rotation = Quaternion.Euler(pos);
         }
+
+        if (currentPointIndex == 0)
+        {
+            if (waitingOnPoint == true)
+            {
+                Vector3 pos = new Vector3(transform.rotation.x, 0, transform.rotation.z);
+                transform.rotation = Quaternion.Euler(pos);
+            }
+        }
+        if (currentPointIndex == 2)
+        {
+            if (waitingOnPoint == true)
+            {
+                Vector3 pos = new Vector3(transform.rotation.x, transform.rotation.y + 180, transform.rotation.z);
+                transform.rotation = Quaternion.Euler(pos);
+            }
+        }
     }
 
     IEnumerator Wait()
@@ -80,6 +99,11 @@ public class Boss : MonoBehaviour
     public void isAttack()
     {
         anim.SetBool("isAtacking", true);
+    }
+    void AttackDamage()
+    {
+        Debug.Log("AttackDamage");
+        plController.isHurt();
     }
     public void endAttack()
     {

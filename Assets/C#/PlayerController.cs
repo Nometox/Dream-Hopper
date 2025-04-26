@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     BoxCollider2D bc;
     TrailRenderer tr;
 
+
     [SerializeField] private LayerMask jumpLayer;
     private bool IsGrounded()
     {
@@ -106,7 +107,8 @@ public class PlayerController : MonoBehaviour
         if (jumpCooldown > 0)
         {
             jumpCooldown -= Time.deltaTime;
-        } else if (IsGrounded() && animator.GetBool("isJumping"))
+        }
+        else if (IsGrounded() && animator.GetBool("isJumping"))
         {
             animator.SetBool("isJumping", false);
             canAttack = true;
@@ -124,6 +126,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        Physics2D.IgnoreLayerCollision(6, 7, true);
         canDash = false;
         DashOn = true;
         float originalGravity = rb2D.gravityScale;
@@ -134,7 +137,19 @@ public class PlayerController : MonoBehaviour
         tr.emitting = false;
         rb2D.gravityScale = originalGravity;
         DashOn = false;
+        Physics2D.IgnoreLayerCollision(6, 7, false);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+
+    public void isHurt()
+    {
+        animator.SetBool("isHurt", true);
+    }
+
+    public void endHurt()
+    {
+        Debug.Log("endHurt");
+        animator.SetBool("isHurt", false);
     }
 }
