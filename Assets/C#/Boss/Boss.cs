@@ -100,9 +100,8 @@ public class Boss : MonoBehaviour
     {
         anim.SetBool("isAtacking", true);
     }
-    void AttackDamage()
+    public void AttackDamage()
     {
-        Debug.Log("AttackDamage");
         plController.isHurt();
     }
     public void endAttack()

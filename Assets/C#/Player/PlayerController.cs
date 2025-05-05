@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     BoxCollider2D bc;
     TrailRenderer tr;
+    BossHealth BossHealth;
 
 
     [SerializeField] private LayerMask jumpLayer;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private float jumpCooldown;
 
     private bool canAttack = true;
+    public bool isAttacking = false;
 
     private bool canDash = true;
     private bool DashOn;
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         bc = GetComponent<BoxCollider2D>();
+        BossHealth = GameObject.FindWithTag("Enemy").GetComponent<BossHealth>();
     }
 
     void FixedUpdate()
@@ -68,10 +71,16 @@ public class PlayerController : MonoBehaviour
 
     void flipX()
     {
-        if (moveInput > 0)
-            spriteRenderer.flipX = false;
-        else if (moveInput < 0)
-            spriteRenderer.flipX = true;
+        if (moveInput < 0)
+        {
+            Vector3 pos = new Vector3(transform.rotation.x, transform.rotation.y + 180, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(pos);
+        }
+        else if (moveInput > 0) 
+        {
+            Vector3 pos = new Vector3(transform.rotation.x, 0, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(pos);
+        }
     }
 
     void isMoving()
@@ -86,12 +95,21 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Attack1", true);
             canDash = false;
+            isAttacking = true;
         }
     }
+
+    public void AttackDamage()
+    {
+        Debug.Log("gotAttacked");
+        BossHealth.BossGotHurt();
+    }
+
     void endAttack()
     {
         animator.SetBool("Attack1", false);
         canDash = true;
+        isAttacking = false;
     }
 
     void Jump()
@@ -145,11 +163,12 @@ public class PlayerController : MonoBehaviour
     public void isHurt()
     {
         animator.SetBool("isHurt", true);
+        canAttack = false;
     }
 
     public void endHurt()
     {
-        Debug.Log("endHurt");
         animator.SetBool("isHurt", false);
+        canAttack = true;
     }
 }
