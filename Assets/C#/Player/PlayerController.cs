@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     TrailRenderer tr;
     BossHealth BossHealth;
 
+    public bool dashOn = true;
 
     [SerializeField] private LayerMask jumpLayer;
     private bool IsGrounded()
@@ -39,7 +40,15 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         bc = GetComponent<BoxCollider2D>();
+
+        try 
+        { 
         BossHealth = GameObject.FindWithTag("Enemy").GetComponent<BossHealth>();
+        } 
+        catch
+        {
+            Debug.Log("There is no boss in this stage!");
+        }
     }
 
     void FixedUpdate()
@@ -60,7 +69,10 @@ public class PlayerController : MonoBehaviour
         flipX();
         Attack();
         Jump();
-        isDashing();
+        if (dashOn)
+        {
+            isDashing();
+        }
         isMoving();
     }
 
