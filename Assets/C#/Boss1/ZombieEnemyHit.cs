@@ -1,25 +1,20 @@
 using UnityEngine;
 
-public class EnemyHit : MonoBehaviour
+public class ZombieEnemyHit : MonoBehaviour
 {
-    Boss boss;
-    PlayerController plController;
+    ZombieBoss boss;
     void Start()
     {
-        boss = GameObject.FindWithTag("Enemy").GetComponent<Boss>();
-        plController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        boss = GameObject.FindWithTag("Enemy").GetComponent<ZombieBoss>();
     }
 
     void Update()
     {
-        if (boss.waitingOnPoint == false)
-        {
-            boss.endAttack();
-        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && boss.waitingOnPoint == true)
+        if (collision.gameObject.CompareTag("Player"))
         {
             boss.isAttack();
         }
@@ -31,7 +26,7 @@ public class EnemyHit : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && boss.waitingOnPoint == true)
+        if (collision.gameObject.CompareTag("Player"))
         {
             boss.isAttack();
         }

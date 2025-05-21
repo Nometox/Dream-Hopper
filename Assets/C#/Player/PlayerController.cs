@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     BoxCollider2D bc;
     TrailRenderer tr;
-    BossHealth BossHealth;
 
     public bool dashOn = true;
 
@@ -40,15 +39,6 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         bc = GetComponent<BoxCollider2D>();
-
-        try 
-        { 
-        BossHealth = GameObject.FindWithTag("Enemy").GetComponent<BossHealth>();
-        } 
-        catch
-        {
-            Debug.Log("There is no boss in this stage!");
-        }
     }
 
     void FixedUpdate()
@@ -88,7 +78,7 @@ public class PlayerController : MonoBehaviour
             Vector3 pos = new Vector3(transform.rotation.x, transform.rotation.y + 180, transform.rotation.z);
             transform.rotation = Quaternion.Euler(pos);
         }
-        else if (moveInput > 0) 
+        else if (moveInput > 0)
         {
             Vector3 pos = new Vector3(transform.rotation.x, 0, transform.rotation.z);
             transform.rotation = Quaternion.Euler(pos);
@@ -109,12 +99,6 @@ public class PlayerController : MonoBehaviour
             canDash = false;
             isAttacking = true;
         }
-    }
-
-    public void AttackDamage()
-    {
-        Debug.Log("gotAttacked");
-        BossHealth.BossGotHurt();
     }
 
     void endAttack()

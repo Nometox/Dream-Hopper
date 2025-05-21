@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Dream-Hopper.sln"
+    "dotnet.defaultSolution": "Dream Hopper.sln"
 }

@@ -7,27 +7,27 @@ ScriptedImporter:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
       name: d_cleave
-    second: {fileID: 7400000, guid: 03027a3e505891447b26b04db0f43f3e, type: 2}
+    second: {fileID: 7400000, guid: 7c72b630f435d3f4fa107fa2493bfba7, type: 2}
   - first:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
       name: d_idle
-    second: {fileID: 7400000, guid: 70e360871cd23d54189ba2f2e95a7c2d, type: 2}
+    second: {fileID: 7400000, guid: 640383d9352efdc40a7e30ab6f34ee6d, type: 2}
   - first:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
       name: d_take_hit
-    second: {fileID: 7400000, guid: f33ff6be52f68794f978c92299e97368, type: 2}
+    second: {fileID: 7400000, guid: 2b82defb93bdc2b43b3934decfeed18d, type: 2}
   - first:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
       name: d_walk
-    second: {fileID: 7400000, guid: 986d2efa3368e5b4bb8fe2acd60f37bc, type: 2}
+    second: {fileID: 7400000, guid: 380b30a728459b24fb64ffd64aebff61, type: 2}
   - first:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
       name: death
-    second: {fileID: 7400000, guid: 86133fa5ad5029846bd5212ff9751651, type: 2}
+    second: {fileID: 7400000, guid: a926363f28a0b1045a99150f04e2394a, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -123,7 +123,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638811750999832549
+  platformSettingsDirtyTick: 638834224045188689
   textureAssetName: 
   singleSpriteImportData:
   - name: 

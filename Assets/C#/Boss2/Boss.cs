@@ -9,6 +9,7 @@ public class Boss : MonoBehaviour
     public Transform[] patrolPoints;
     SpriteRenderer spriteRenderer;
 
+    [SerializeField] float Health = 100;
     int currentPointIndex;
     public float speed;
     public float waitTime;
@@ -18,18 +19,18 @@ public class Boss : MonoBehaviour
 
     public BoxCollider2D hitpoint;
 
-    PlayerController plController;
+    // PlayerController plController;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         enemyhit = GameObject.FindWithTag("HitPoint").GetComponent<EnemyHit>();
-        plController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
     void Update()
     {
         isMoving();
         flipX();
+        BossDefeat();
     }
     void isMoving()
     {
@@ -102,10 +103,24 @@ public class Boss : MonoBehaviour
     }
     public void AttackDamage()
     {
-        plController.isHurt();
+        GameManager.Instance.PlayerisHurt();
     }
     public void endAttack()
     {
         anim.SetBool("isAtacking", false);
     }
+
+    public void BossGotHurtDemon()
+    {
+        Health -= 20;
+    }
+
+    void BossDefeat()
+    {
+        if (Health == 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 }

@@ -12,25 +12,25 @@ public class PlayerHit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy") && plController.isAttacking && !hasAttacked)
+        if (collision.CompareTag("Enemy") && plController.isAttacking && hasAttacked == false)
         {
-            plController.AttackDamage();
+            GameManager.Instance.attackDamage();
             hasAttacked = true;
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy") && plController.isAttacking && !hasAttacked)
+        if (collision.CompareTag("Enemy") && plController.isAttacking && hasAttacked == false)
         {
-            plController.AttackDamage();
+            GameManager.Instance.attackDamage();
             hasAttacked = true;
         }
     }
 
     void Update()
     {
-        if (!plController.isAttacking)
+        if (plController.isAttacking == false)
         {
             hasAttacked = false;
         }
