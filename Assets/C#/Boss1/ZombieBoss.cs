@@ -9,27 +9,33 @@ public class ZombieBoss : MonoBehaviour
     public float speed = 2f;
     public float launchForce = 10f;
     public float Health = 200f;
-    public float weakPhaseDuration = 3f;
 
     [Header("References")]
-    public Transform player;
+    [HideInInspector] public Transform player;
     private Animator anim;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+
+    public GameObject hitCollider;
+    public GameObject bossBoxColliderHit;
+    BoxCollider2D boxC2D;
 
     [HideInInspector] public bool waitingOnPoint = false;
 
     private BossState currentState = BossState.Follow;
     private float originalSpeed;
-    private float rageMultiplier = 2f;
+    private float rageMultiplier = 1.2f;
     private bool isRaging = false;
+    [HideInInspector] public bool isWeak = false;
+
+    bool isDead = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        boxC2D = GetComponent<BoxCollider2D>();
         originalSpeed = speed;
 
         if (player != null)
@@ -42,8 +48,9 @@ public class ZombieBoss : MonoBehaviour
 
     void Update()
     {
-        if (!isRaging && Health <= 100)
+        if (isRaging == false && Health <= 100)
         {
+            spriteRenderer.color = Color.magenta;
             EnterRageMode();
         }
 
@@ -57,6 +64,13 @@ public class ZombieBoss : MonoBehaviour
         }
 
         anim.SetBool("isMoving", rb.linearVelocity.magnitude > 0.1f);
+
+        if (isDead == true)
+        {
+            hitCollider.SetActive(false);
+            bossBoxColliderHit.SetActive(false);
+            boxC2D.enabled = false;
+        }
     }
 
     IEnumerator BossPhaseLoop()
@@ -65,7 +79,6 @@ public class ZombieBoss : MonoBehaviour
         {
             // Phase 1 - Follow
             currentState = BossState.Follow;
-            waitingOnPoint = false;
             yield return new WaitForSeconds(3f);
 
             // Phase 2 - Launch
@@ -75,12 +88,15 @@ public class ZombieBoss : MonoBehaviour
 
             // Phase 3 - Weak
             currentState = BossState.Idle;
+            isWeak = true;
             anim.SetTrigger("Weak");
-            // setactive 
-            yield return new WaitForSeconds(weakPhaseDuration);
-            waitingOnPoint = false;
+            hitCollider.SetActive(false);
+            yield return new WaitForSeconds(3f);
+            hitCollider.SetActive(true);
+            isWeak = false;
         }
     }
+
 
     void FollowPlayer()
     {
@@ -117,14 +133,31 @@ public class ZombieBoss : MonoBehaviour
         Debug.Log("Zombie Boss entered Rage Mode!");
     }
 
+    IEnumerator bossdamage()
+    {
+        isWeak = false;
+        hitCollider.SetActive(false);
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(.5f);
+        if (isRaging)
+        {
+            spriteRenderer.color = Color.magenta;
+        }
+        else
+        {
+            spriteRenderer.color = Color.white;
+        }
+        isWeak = true;
+    }
     public void BossGotHurtZombie()
     {
+        StartCoroutine(bossdamage());
         Health -= 20;
-        anim.SetTrigger("Hurt");
         Debug.Log("Boss Health: " + Health);
 
         if (Health <= 0)
         {
+            isDead = true;
             Die();
         }
     }
@@ -134,7 +167,7 @@ public class ZombieBoss : MonoBehaviour
         anim.SetBool("isAtacking", true);
     }
 
-        public void AttackDamage()
+    public void AttackDamage()
     {
         GameManager.Instance.PlayerisHurt();
     }

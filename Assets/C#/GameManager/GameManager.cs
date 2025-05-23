@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     public void attackDamage()
     {
-        if (ZombieBoss != null)
+        if (ZombieBoss != null && ZombieBoss.isWeak == true)
         {
             ZombieBoss.BossGotHurtZombie();
         }
