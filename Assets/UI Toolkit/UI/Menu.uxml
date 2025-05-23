@@ -17,6 +17,9 @@
             <ui:VisualElement name="SettingsContainer" style="flex-grow: 1; flex-direction: column; align-content: center; align-self: stretch; align-items: stretch; justify-content: flex-start; height: 991px;">
                 <ui:Slider label="Volume" value="1" high-value="1" name="VolumeSlider" style="font-size: 34px; -unity-font-style: bold;" />
                 <ui:Toggle label="FullScreen" name="FullscreenToggle" style="font-size: 20px; -unity-font-style: bold; align-self: center;" />
+                <ui:Label text="Story" name="story" style="-unity-text-align: lower-center; -unity-font-style: bold; font-size: 33px;" />
+                <ui:Label text="you are in a dream and you need to get out " name="storyText" enable-rich-text="false" parse-escape-sequences="false" emoji-fallback-support="false" style="-unity-text-align: lower-center; -unity-font-style: bold; font-size: 33px;" />
+                <ui:Label text="succes is needed and not asked " name="storyText" enable-rich-text="false" parse-escape-sequences="false" emoji-fallback-support="false" style="-unity-text-align: lower-center; -unity-font-style: bold; font-size: 33px;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

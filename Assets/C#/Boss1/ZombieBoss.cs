@@ -21,10 +21,13 @@ public class ZombieBoss : MonoBehaviour
     BoxCollider2D boxC2D;
 
     [HideInInspector] public bool waitingOnPoint = false;
+    public float launchMinDistance = 5f;
+    [HideInInspector] public bool isAttacking = false;
+
 
     private BossState currentState = BossState.Follow;
     private float originalSpeed;
-    private float rageMultiplier = 1.2f;
+    private float rageMultiplier = 2f;
     private bool isRaging = false;
     [HideInInspector] public bool isWeak = false;
 
@@ -38,40 +41,48 @@ public class ZombieBoss : MonoBehaviour
         boxC2D = GetComponent<BoxCollider2D>();
         originalSpeed = speed;
 
-        if (player != null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-        }
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
 
         StartCoroutine(BossPhaseLoop());
     }
 
     void Update()
     {
-        if (isRaging == false && Health <= 100)
+        if (isRaging == false && Health <= 40)
         {
             spriteRenderer.color = Color.magenta;
             EnterRageMode();
         }
 
-        if (currentState == BossState.Follow)
+        if (isDead)
         {
-            FollowPlayer();
+            hitCollider.SetActive(false);
+            bossBoxColliderHit.SetActive(false);
+            boxC2D.enabled = false;
+            rb.linearVelocity = Vector2.zero;
+            return;
         }
-        else if (currentState == BossState.Idle)
+
+        if (!isAttacking)
+        {
+            if (currentState == BossState.Follow)
+            {
+                FollowPlayer();
+            }
+            else if (currentState == BossState.Idle)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
+        }
+        else
         {
             rb.linearVelocity = Vector2.zero;
         }
 
         anim.SetBool("isMoving", rb.linearVelocity.magnitude > 0.1f);
-
-        if (isDead == true)
-        {
-            hitCollider.SetActive(false);
-            bossBoxColliderHit.SetActive(false);
-            boxC2D.enabled = false;
-        }
     }
+
 
     IEnumerator BossPhaseLoop()
     {
@@ -91,7 +102,7 @@ public class ZombieBoss : MonoBehaviour
             isWeak = true;
             anim.SetTrigger("Weak");
             hitCollider.SetActive(false);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1.5f);
             hitCollider.SetActive(true);
             isWeak = false;
         }
@@ -119,10 +130,20 @@ public class ZombieBoss : MonoBehaviour
 
     void LaunchAtPlayer()
     {
-        anim.SetTrigger("Launch");
-        Vector2 direction = (player.position - transform.position).normalized;
-        rb.linearVelocity = direction * launchForce;
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+        if (distanceToPlayer >= launchMinDistance)
+        {
+            anim.SetTrigger("Launch");
+            Vector2 direction = (player.position - transform.position).normalized;
+            rb.linearVelocity = direction * launchForce;
+        }
+        else
+        {
+            currentState = BossState.Follow;
+        }
     }
+
 
     void EnterRageMode()
     {
@@ -135,10 +156,9 @@ public class ZombieBoss : MonoBehaviour
 
     IEnumerator bossdamage()
     {
-        isWeak = false;
         hitCollider.SetActive(false);
         spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.7f);
         if (isRaging)
         {
             spriteRenderer.color = Color.magenta;
@@ -147,7 +167,6 @@ public class ZombieBoss : MonoBehaviour
         {
             spriteRenderer.color = Color.white;
         }
-        isWeak = true;
     }
     public void BossGotHurtZombie()
     {
@@ -164,7 +183,14 @@ public class ZombieBoss : MonoBehaviour
 
     public void isAttack()
     {
+        isAttacking = true;
         anim.SetBool("isAtacking", true);
+    }
+
+    public void endAttack()
+    {
+        isAttacking = false;
+        anim.SetBool("isAtacking", false);
     }
 
     public void AttackDamage()
@@ -172,10 +198,6 @@ public class ZombieBoss : MonoBehaviour
         GameManager.Instance.PlayerisHurt();
     }
 
-    public void endAttack()
-    {
-        anim.SetBool("isAtacking", false);
-    }
 
     void Die()
     {

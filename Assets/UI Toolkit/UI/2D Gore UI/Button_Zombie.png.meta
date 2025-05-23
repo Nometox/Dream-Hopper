@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Button_Zombie_0: -2721316811540054816
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

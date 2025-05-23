@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
     public Boss DemonBoss;
 
     public PlayerController Player;
+
+    public Image[] hearts;
 
     private void Awake()
     {
@@ -23,9 +26,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void UpdateHearts(int lives)
+    {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            hearts[i].enabled = i < lives;
+        }
+    }
+
     public void PlayerisHurt()
     {
-        Player.isHurt();
+        Player.TakeDamage();
     }
 
     public void attackDamage()

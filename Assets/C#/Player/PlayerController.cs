@@ -1,6 +1,7 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb2D;
@@ -32,6 +33,9 @@ public class PlayerController : MonoBehaviour
     private float dashingTime = 0.07f;
     public float dashingCooldown = 1f;
 
+    public int lives = 5;
+    private bool isDead = false;
+
     void Start()
     {
         tr = GetComponent<TrailRenderer>();
@@ -43,26 +47,20 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (DashOn)
-        {
-            return;
-        }
+        if (DashOn || isDead) return;
+
         rb2D.linearVelocity = new Vector2(moveInput * runSpeed, rb2D.linearVelocity.y);
     }
+
     void Update()
     {
-        if (DashOn)
-        {
-            return;
-        }
+        if (DashOn || isDead) return;
+
         HandleInput();
         flipX();
         Attack();
         Jump();
-        if (dashOn)
-        {
-            isDashing();
-        }
+        if (dashOn) isDashing();
         isMoving();
     }
 
@@ -92,7 +90,6 @@ public class PlayerController : MonoBehaviour
 
     void Attack()
     {
-
         if (Input.GetMouseButtonDown(0) && canAttack)
         {
             animator.SetBool("Attack1", true);
@@ -129,7 +126,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     void isDashing()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
@@ -154,6 +150,33 @@ public class PlayerController : MonoBehaviour
         Physics2D.IgnoreLayerCollision(6, 7, false);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+
+    public void TakeDamage()
+    {
+        if (isDead) return;
+
+        lives--;
+        GameManager.Instance.UpdateHearts(lives);
+
+        if (lives > 0)
+        {
+            isHurt();
+        }
+        else
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        isDead = true;
+        animator.SetTrigger("Die");
+        rb2D.linearVelocity = Vector2.zero;
+        rb2D.gravityScale = 0;
+        tr.emitting = false;
+        this.enabled = false;
     }
 
     public void isHurt()

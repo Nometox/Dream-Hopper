@@ -24,15 +24,11 @@ public class ZombieEnemyHit : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             boss.isAttack();
-        }
-        else
-        {
-            boss.endAttack();
         }
     }
 
@@ -43,4 +39,5 @@ public class ZombieEnemyHit : MonoBehaviour
             boss.endAttack();
         }
     }
+
 }

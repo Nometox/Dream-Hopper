@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Gauge_ZombieSkin_Thin_Half_0: 1509324380723664018
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

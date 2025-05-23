@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Gauge_FleshRottent_Full_0: -5764856995663662320
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

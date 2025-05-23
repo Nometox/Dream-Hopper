@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Gauge_ZombieSkinRotten_Thick_Full_0: 1608038763454845024
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

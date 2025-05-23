@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Gauge_Stomach_Full_0: -7472450716140736986
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Button_Flesh_Pressed_0: 7666006254362680369
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
