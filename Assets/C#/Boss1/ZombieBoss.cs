@@ -18,6 +18,8 @@ public class ZombieBoss : MonoBehaviour
 
     public GameObject hitCollider;
     public GameObject bossBoxColliderHit;
+
+    public GameObject MagicMashroom;
     BoxCollider2D boxC2D;
 
     [HideInInspector] public bool waitingOnPoint = false;
@@ -31,6 +33,7 @@ public class ZombieBoss : MonoBehaviour
     private bool isRaging = false;
     [HideInInspector] public bool isWeak = false;
 
+
     bool isDead = false;
 
     void Start()
@@ -40,6 +43,7 @@ public class ZombieBoss : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxC2D = GetComponent<BoxCollider2D>();
         originalSpeed = speed;
+        MagicMashroom.SetActive(false);
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -202,6 +206,7 @@ public class ZombieBoss : MonoBehaviour
     void Die()
     {
         anim.SetTrigger("Die");
+        MagicMashroom.SetActive(true);
         rb.linearVelocity = Vector2.zero;
     }
 }
