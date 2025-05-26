@@ -1,126 +1,110 @@
 using System.Collections;
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Boss : MonoBehaviour
 {
-    Animator anim;
+    [Header("References")]
     public Transform[] patrolPoints;
-    SpriteRenderer spriteRenderer;
+    public BoxCollider2D hitPoint;
+    private Rigidbody2D rb;
+    private Animator anim;
+    private SpriteRenderer spriteRenderer;
+    private EnemyHit enemyHit;
 
-    [SerializeField] float Health = 100;
-    int currentPointIndex;
-    public float speed;
-    public float waitTime;
-    private bool once;
-    public bool waitingOnPoint;
-    EnemyHit enemyhit;
+    [Header("Boss Settings")]
+    [SerializeField] private float health = 100;
+    public float speed = 2f;
+    public float waitTime = 2f;
 
-    public BoxCollider2D hitpoint;
+    private int currentPointIndex = 0;
+    private bool isWaiting = false;
+    private bool coroutineStarted = false;
 
-    // PlayerController plController;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        enemyhit = GameObject.FindWithTag("HitPoint").GetComponent<EnemyHit>();
-    }
-    void Update()
-    {
-        isMoving();
-        flipX();
-        BossDefeat();
-    }
-    void isMoving()
-    {
-        if (Vector2.Distance(transform.position, patrolPoints[currentPointIndex].position) > 0.05f)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, patrolPoints[currentPointIndex].position, speed * Time.deltaTime);
-        }
-        else
-        {
-            if (once == false)
-            {
-                once = true;
-                StartCoroutine(Wait());
-            }
-        }
-        bool Moving = Vector2.Distance(transform.position, patrolPoints[currentPointIndex].position) > 0.05f;
-        anim.SetBool("isMoving", Moving);
+        enemyHit = GameObject.FindWithTag("HitPoint").GetComponent<EnemyHit>();
+        rb = GetComponent<Rigidbody2D>();
+
     }
 
-    void flipX()
+    void Update()
+    {
+        Patrol();
+        FlipDirection();
+    }
+
+    void Patrol()
+    {
+        if (isWaiting) return;
+
+        Transform targetPoint = patrolPoints[currentPointIndex];
+        float distance = Vector2.Distance(transform.position, targetPoint.position);
+        bool isMoving = distance > 0.05f;
+
+        if (isMoving)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
+        }
+        else if (!coroutineStarted)
+        {
+            coroutineStarted = true;
+            StartCoroutine(WaitAtPoint());
+        }
+
+        anim.SetBool("isMoving", isMoving);
+    }
+
+    IEnumerator WaitAtPoint()
+    {
+        isWaiting = true;
+
+        if (Random.value < 0.5f)
+        {
+            anim.SetTrigger("FakeAttack");
+            yield return new WaitForSeconds(1f);
+        }
+
+        yield return new WaitForSeconds(waitTime);
+        currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
+        isWaiting = false;
+        coroutineStarted = false;
+    }
+
+    void FlipDirection()
     {
         if (transform.position.x < patrolPoints[currentPointIndex].position.x)
         {
-            Vector3 pos = new Vector3(transform.rotation.x, transform.rotation.y + 180, transform.rotation.z);
-            transform.rotation = Quaternion.Euler(pos);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else
         {
-            Vector3 pos = new Vector3(transform.rotation.x, 0, transform.rotation.z);
-            transform.rotation = Quaternion.Euler(pos);
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
-        if (currentPointIndex == 0)
+        if (isWaiting)
         {
-            if (waitingOnPoint == true)
-            {
-                Vector3 pos = new Vector3(transform.rotation.x, 0, transform.rotation.z);
-                transform.rotation = Quaternion.Euler(pos);
-            }
+            if (currentPointIndex == 0)
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            else if (currentPointIndex == 2)
+                transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        if (currentPointIndex == 2)
+    }
+
+    public void StartAttack() => anim.SetTrigger("isAttacking");
+    public void DealAttackDamage() => GameManager.Instance.PlayerisHurt();
+
+    public void TakeDamageDemon()
+    {
+        health -= 20;
+        anim.SetTrigger("Hurt");
+        if (health <= 0)
         {
-            if (waitingOnPoint == true)
-            {
-                Vector3 pos = new Vector3(transform.rotation.x, transform.rotation.y + 180, transform.rotation.z);
-                transform.rotation = Quaternion.Euler(pos);
-            }
+            anim.SetTrigger("Die");
+            rb.linearVelocity = Vector2.zero;
         }
     }
 
-    IEnumerator Wait()
-    {
-        waitingOnPoint = true;
-        yield return new WaitForSeconds(waitTime);
-        waitingOnPoint = false;
-        if (currentPointIndex + 1 < patrolPoints.Length)
-        {
-            currentPointIndex++;
-        }
-        else
-        {
-            currentPointIndex = 0;
-        }
-        once = false;
-    }
-
-    public void isAttack()
-    {
-        anim.SetBool("isAtacking", true);
-    }
-    public void AttackDamage()
-    {
-        GameManager.Instance.PlayerisHurt();
-    }
-    public void endAttack()
-    {
-        anim.SetBool("isAtacking", false);
-    }
-
-    public void BossGotHurtDemon()
-    {
-        Health -= 20;
-    }
-
-    void BossDefeat()
-    {
-        if (Health == 0)
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
+    public bool IsWaitingAtPoint() => isWaiting;
 }

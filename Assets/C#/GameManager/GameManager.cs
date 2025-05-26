@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         }
         if (DemonBoss != null)
         {
-            DemonBoss.BossGotHurtDemon();
+            DemonBoss.TakeDamageDemon();
         }
     }
 }

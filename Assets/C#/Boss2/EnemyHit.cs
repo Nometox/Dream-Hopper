@@ -2,48 +2,36 @@ using UnityEngine;
 
 public class EnemyHit : MonoBehaviour
 {
-    Boss boss;
+    private Boss boss;
+    private bool playerInRange = false;
+
     void Start()
     {
         boss = GameObject.FindWithTag("Enemy").GetComponent<Boss>();
     }
 
-    void Update()
-    {
-        if (boss.waitingOnPoint == false)
-        {
-            boss.endAttack();
-        }
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && boss.waitingOnPoint == true)
+        if (collision.CompareTag("Player") && boss.IsWaitingAtPoint())
         {
-            boss.isAttack();
-        }
-        else
-        {
-            boss.endAttack();
+            playerInRange = true;
+            boss.StartAttack();
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && boss.waitingOnPoint == true)
+        if (collision.CompareTag("Player"))
         {
-            boss.isAttack();
-        }
-        else
-        {
-            boss.endAttack();
+            playerInRange = false;
         }
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    public void TryDealAttackDamage()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (playerInRange)
         {
-            boss.endAttack();
+            boss.DealAttackDamage();
         }
     }
 }

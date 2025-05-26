@@ -177,6 +177,13 @@ public class PlayerController : MonoBehaviour
         rb2D.gravityScale = 0;
         tr.emitting = false;
         this.enabled = false;
+        StartCoroutine(DeadRestart());
+    }
+
+    IEnumerator DeadRestart()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void isHurt()

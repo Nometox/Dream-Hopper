@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class BossBC : MonoBehaviour
 {
-    Boss Boss;
+    private Boss boss;
+
     void Start()
     {
-        Boss = GameObject.FindWithTag("Enemy").GetComponent<Boss>();
+        boss = GameObject.FindWithTag("Enemy").GetComponent<Boss>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            Boss.AttackDamage();
+            boss.DealAttackDamage();
         }
     }
 }
