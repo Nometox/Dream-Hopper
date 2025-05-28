@@ -46,7 +46,6 @@ public class Boss : MonoBehaviour
     {
         if (isDead == true)
         {
-            GameManager.Instance.Audio.PlayBossDeadSound();
             mashroom.SetActive(true);
             boxC2D.enabled = false;
             hitSpot.SetActive(false);
@@ -143,6 +142,7 @@ public class Boss : MonoBehaviour
         GameManager.Instance.Audio.PlayBossGotHurtSound();
         if (health <= 0)
         {
+            GameManager.Instance.Audio.PlayBossDeadSound();
             isDead = true;
             anim.SetTrigger("Die");
             rb.linearVelocity = Vector2.zero;

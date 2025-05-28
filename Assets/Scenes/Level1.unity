@@ -7093,13 +7093,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afbd977c3d79d264c9477e2dba4809c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asSounds: {fileID: 1355955307}
-  ButtonClicked: {fileID: 0}
-  DieSound: {fileID: 0}
-  RoundWinSound: {fileID: 0}
-  WinSound: {fileID: 0}
-  MoveSound: {fileID: 8300000, guid: 1b2366ede4902f1469e00d951928d12a, type: 3}
+  BossDieSound: {fileID: 8300000, guid: 647c1c4bcca40744f91bfd6acc12d594, type: 3}
+  BossMoveSound: {fileID: 8300000, guid: b25fba13817237949a5fd2e4815c06b8, type: 3}
+  BossAttackSound: {fileID: 8300000, guid: f625da9d48ecda040907c0ea90b8d8ab, type: 3}
+  BossRageSound: {fileID: 8300000, guid: a03e643aae633a04f857b5576bfc1041, type: 3}
+  BossGotHurtSound: {fileID: 8300000, guid: 9ef33303e2698e540a710cf2e9455f9f, type: 3}
+  DieSound: {fileID: 8300000, guid: e10dfc38c70d605469b7e85a460411dc, type: 3}
+  DashSound: {fileID: 8300000, guid: 14cdefe64b4b10b4cb04932e4dfab213, type: 3}
+  AttackSound: {fileID: 8300000, guid: a75265081f8c2864093fd60778f37e22, type: 3}
   JumpSound: {fileID: 8300000, guid: a597c06534dd8a0409f6d080ed7853f5, type: 3}
+  ButtonClicked: {fileID: 0}
+  asSounds: {fileID: 1355955307}
+  RoundWinSound: {fileID: 8300000, guid: 00fe94a8664b02b479372c78cd7011a7, type: 3}
+  WinSound: {fileID: 0}
 --- !u!114 &1355955309
 MonoBehaviour:
   m_ObjectHideFlags: 0

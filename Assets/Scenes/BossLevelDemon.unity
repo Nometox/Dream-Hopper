@@ -1321,7 +1321,7 @@ MonoBehaviour:
   AttackSound: {fileID: 8300000, guid: a75265081f8c2864093fd60778f37e22, type: 3}
   JumpSound: {fileID: 8300000, guid: a597c06534dd8a0409f6d080ed7853f5, type: 3}
   ButtonClicked: {fileID: 0}
-  asSounds: {fileID: 0}
+  asSounds: {fileID: 1231408879}
   RoundWinSound: {fileID: 8300000, guid: 00fe94a8664b02b479372c78cd7011a7, type: 3}
   WinSound: {fileID: 0}
 --- !u!1 &1361414578

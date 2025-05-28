@@ -657,6 +657,7 @@ MonoBehaviour:
   dashingPower: 13
   dashingCooldown: 1
   lives: 5
+  maxLives: 10
 --- !u!96 &147698693
 TrailRenderer:
   serializedVersion: 3
@@ -1910,7 +1911,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 911659193}
-  - component: {fileID: 911659195}
   m_Layer: 0
   m_Name: lava
   m_TagString: Untagged
@@ -1935,52 +1935,6 @@ Transform:
   - {fileID: 1206447560}
   m_Father: {fileID: 1876523402}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &911659195
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 911659192}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &923168591
 GameObject:
   m_ObjectHideFlags: 0
@@ -2756,14 +2710,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afbd977c3d79d264c9477e2dba4809c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asSounds: {fileID: 1285399525}
-  ButtonClicked: {fileID: 0}
+  BossDieSound: {fileID: 0}
+  BossMoveSound: {fileID: 0}
+  BossAttackSound: {fileID: 0}
+  BossRageSound: {fileID: 0}
+  BossGotHurtSound: {fileID: 0}
   DieSound: {fileID: 8300000, guid: e10dfc38c70d605469b7e85a460411dc, type: 3}
+  DashSound: {fileID: 8300000, guid: 14cdefe64b4b10b4cb04932e4dfab213, type: 3}
+  AttackSound: {fileID: 8300000, guid: a75265081f8c2864093fd60778f37e22, type: 3}
+  JumpSound: {fileID: 8300000, guid: a597c06534dd8a0409f6d080ed7853f5, type: 3}
+  ButtonClicked: {fileID: 0}
+  asSounds: {fileID: 1285399525}
   RoundWinSound: {fileID: 8300000, guid: 00fe94a8664b02b479372c78cd7011a7, type: 3}
   WinSound: {fileID: 0}
-  DashSound: {fileID: 8300000, guid: 14cdefe64b4b10b4cb04932e4dfab213, type: 3}
-  JumpSound: {fileID: 8300000, guid: a597c06534dd8a0409f6d080ed7853f5, type: 3}
-  AttackSound: {fileID: 8300000, guid: a75265081f8c2864093fd60778f37e22, type: 3}
 --- !u!114 &1285399523
 MonoBehaviour:
   m_ObjectHideFlags: 0

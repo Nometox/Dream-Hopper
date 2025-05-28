@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     public float dashingCooldown = 1f;
 
     public int lives = 5;
+    public int maxLives = 5;
+
     private bool isDead = false;
 
     void Start()
@@ -201,4 +203,24 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isHurt", false);
         canAttack = true;
     }
+
+    public void AddHeart()
+    {
+        if (lives < maxLives)
+        {
+            lives++;
+            GameManager.Instance.UpdateHearts(lives);
+        }
+    }
+
+    public void IncreaseMaxHearts()
+    {
+        if (maxLives < GameManager.Instance.hearts.Length)
+        {
+            maxLives++;
+            lives = maxLives;
+            GameManager.Instance.UpdateHearts(lives);
+        }
+    }
+
 }
