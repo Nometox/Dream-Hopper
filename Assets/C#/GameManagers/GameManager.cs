@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     
     public static GameManager Instance { get; private set; }
+    public GameAudio Audio;
     public ZombieBoss ZombieBoss;
     public Boss DemonBoss;
 
@@ -39,6 +40,8 @@ public class GameManager : MonoBehaviour
     {
         Player.TakeDamage();
     }
+
+    
 
     public void attackDamage()
     {

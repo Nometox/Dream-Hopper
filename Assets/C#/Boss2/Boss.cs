@@ -10,15 +10,26 @@ public class Boss : MonoBehaviour
     private Animator anim;
     private SpriteRenderer spriteRenderer;
     private EnemyHit enemyHit;
+    public GameObject mashroom;
+
+    BoxCollider2D boxC2D;
 
     [Header("Boss Settings")]
-    [SerializeField] private float health = 100;
-    public float speed = 2f;
-    public float waitTime = 2f;
-
+    [SerializeField] private float health = 500;
+    float Normalspeed = 2f;
+    public float speed;
+    float normalWaitTime = 2f;
+    public float waitTime;
+    float ragespeed = 5;
+    float waitTimeRage = 2.5f;
     private int currentPointIndex = 0;
     private bool isWaiting = false;
     private bool coroutineStarted = false;
+    bool isDead = false;
+
+    public GameObject hitSpot;
+    public GameObject bossGetHit;
+    bool isRaging = false;
 
     void Start()
     {
@@ -26,13 +37,40 @@ public class Boss : MonoBehaviour
         anim = GetComponent<Animator>();
         enemyHit = GameObject.FindWithTag("HitPoint").GetComponent<EnemyHit>();
         rb = GetComponent<Rigidbody2D>();
-
+        boxC2D = GetComponent<BoxCollider2D>();
+        speed = Normalspeed;
+        waitTime = normalWaitTime;
     }
 
     void Update()
     {
+        if (isDead == true)
+        {
+            GameManager.Instance.Audio.PlayBossDeadSound();
+            mashroom.SetActive(true);
+            boxC2D.enabled = false;
+            hitSpot.SetActive(false);
+            bossGetHit.SetActive(false);
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (isRaging == false && health <= 100)
+        {
+            EnterRageMode();
+        }
         Patrol();
         FlipDirection();
+    }
+
+    void EnterRageMode()
+    {
+        spriteRenderer.color = Color.red;
+        isRaging = true;
+        anim.SetTrigger("Rage");
+        GameManager.Instance.Audio.PlayBossRageSound();
+        speed = ragespeed;
+        waitTime = waitTimeRage;
     }
 
     void Patrol()
@@ -92,18 +130,24 @@ public class Boss : MonoBehaviour
         }
     }
 
-    public void StartAttack() => anim.SetTrigger("isAttacking");
+    public void StartAttack()
+    {
+        anim.SetTrigger("isAttacking");
+        GameManager.Instance.Audio.PlayBossAttackSound();
+    }
     public void DealAttackDamage() => GameManager.Instance.PlayerisHurt();
 
     public void TakeDamageDemon()
     {
-        health -= 20;
         anim.SetTrigger("Hurt");
+        GameManager.Instance.Audio.PlayBossGotHurtSound();
         if (health <= 0)
         {
+            isDead = true;
             anim.SetTrigger("Die");
             rb.linearVelocity = Vector2.zero;
         }
+        health -= 20;
     }
 
     public bool IsWaitingAtPoint() => isWaiting;

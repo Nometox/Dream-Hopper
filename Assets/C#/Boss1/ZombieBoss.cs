@@ -61,6 +61,7 @@ public class ZombieBoss : MonoBehaviour
 
         if (isDead)
         {
+            GameManager.Instance.Audio.PlayBossDeadSound();
             hitCollider.SetActive(false);
             bossBoxColliderHit.SetActive(false);
             boxC2D.enabled = false;
@@ -151,6 +152,8 @@ public class ZombieBoss : MonoBehaviour
 
     void EnterRageMode()
     {
+        GameManager.Instance.Audio.PlayBossRageSound();
+
         isRaging = true;
         speed *= rageMultiplier;
         launchForce *= rageMultiplier;
@@ -174,6 +177,7 @@ public class ZombieBoss : MonoBehaviour
     }
     public void BossGotHurtZombie()
     {
+        GameManager.Instance.Audio.PlayBossGotHurtSound();
         StartCoroutine(bossdamage());
         Health -= 20;
         Debug.Log("Boss Health: " + Health);

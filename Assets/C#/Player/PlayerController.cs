@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canAttack)
         {
             animator.SetBool("Attack1", true);
+            GameManager.Instance.Audio.PlayAttackSound();
             canDash = false;
             isAttacking = true;
         }
@@ -109,6 +110,7 @@ public class PlayerController : MonoBehaviour
     {
         if (IsGrounded() && Input.GetButtonDown("Jump"))
         {
+            GameManager.Instance.Audio.PlayJumpSound();
             rb2D.linearVelocity = Vector2.up * jumpForce;
             animator.SetBool("isJumping", true);
             jumpCooldown = 1f;
@@ -130,6 +132,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
+            GameManager.Instance.Audio.PlayDashSound();
             StartCoroutine(Dash());
         }
     }
@@ -169,10 +172,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Die()
     {
         isDead = true;
         animator.SetTrigger("Die");
+        GameManager.Instance.Audio.PlayDieSound();
         rb2D.linearVelocity = Vector2.zero;
         rb2D.gravityScale = 0;
         tr.emitting = false;

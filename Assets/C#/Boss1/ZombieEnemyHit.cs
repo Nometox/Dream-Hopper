@@ -17,6 +17,8 @@ public class ZombieEnemyHit : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             boss.isAttack();
+            GameManager.Instance.Audio.PlayBossAttackSound();
+
         }
         else
         {
